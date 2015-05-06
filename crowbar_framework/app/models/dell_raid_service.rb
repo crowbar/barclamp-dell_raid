@@ -50,7 +50,7 @@ class DellRaidService < ServiceObject
    def add_role(inst, name, state, new_role)
 
      @logger.debug("DellRaid transition: installed state for #{name} for #{state}")
-     db = ProposalObject.find_proposal "dell_raid", inst
+     db = Proposal.where(barclamp: "dell_raid", name: inst).first
      role = RoleObject.find_role_by_name "dell_raid-config-#{inst}"
      result = add_role_to_instance_and_node("dell_raid", inst, name, db, role, new_role )
      @logger.debug("DellRaid transition: leaving from installed state for #{name} for #{state}")
